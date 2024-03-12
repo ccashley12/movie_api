@@ -1,10 +1,10 @@
 const http = require('http'),
-    url = require('url'),
-    fs = require('fs');
+    fs = require('fs'),
+    url = require('url');
 
 http.createServer((request, response) => {
     let addr = request.url,
-        q = new URL(addr, 'http://localhost:8080' + request.headers.host),
+        q = new URL(addr, 'http://' + request.headers.host),
         filePath = '';
 
     fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', (err) => {
@@ -16,9 +16,9 @@ http.createServer((request, response) => {
     });
 
     if (q.pathname.includes('documentation')) {
-        filePath = (_dirname + '/documentation.html');
+        filePath = __dirname + '/documentation.html';
     } else {
-        filePath + 'index.html';
+        filePath = 'index.html';
     }
 
     fs.readFile(filePath, (err, data) => {
@@ -28,7 +28,7 @@ http.createServer((request, response) => {
 
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.write(data);
-        response.end('Hello Node!\n');
+        response.end();
     });
 
 }).listen(8080);
