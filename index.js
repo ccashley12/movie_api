@@ -1,5 +1,14 @@
-const express = require('express');
+const express = require('express'),
+    morgan = require('morgan'),
+    fs = require('fs'),
+    path = require('path');
+
 const app = express();
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
+
+const bodyParser = require('body-parser'),
+    methodOverride = require(method-override);
 
 let topMovies = [
     {
@@ -54,12 +63,28 @@ let topMovies = [
     }
 ];
 
+let myLogger = (req, res, next) => {
+    console.log(req.url);
+    next();
+};
+
+let requestTime = (req, res, next) => {
+    req.requestTime = Date.now();
+    next();
+};
+
+app.use(myLogger);
+app.use(requestTime);
+app.use(morgan('combined', {stream: accessLogStream}));
+
 //GET requests
 app.get('/', (req, res) => {
-    res.send('Welcome to Cinema Express!');
+    let responseText = 'Welcome to Cinema Express!';
+    responseText += '<small>Requested at: ' + req.requestTime + '</small>';
+    res.send(responseText);
 });
 
-app.get('/documentation', (req, res) => {
+app.get('/documentation.html', (req, res) => {
     res.sendFile('public/documentation.html', { root: __dirname });
 });
 
@@ -68,7 +93,20 @@ app.get('/movies', (req, res) => {
 });
 
 //serve files from public folder
-app.use(express.static('public'));
+app.use('/documentation.html', express.static('public'));
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.use(bodyParser.json());
+app.use(methodOverride());
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+
+res.status(500).send('Something Broke!');
+});
 
 //listen for requests
 app.listen(8080, () => {
