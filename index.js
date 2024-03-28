@@ -9,6 +9,9 @@ const app = express();
 //a log.txt file is created in root directory
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
+const bodyParser = require('body-parser'),
+    methodOverride = require('method-override');
+
 let topMovies = [
     {
         title: 'Perks of Being a Wallflower 2012',
@@ -62,9 +65,6 @@ let topMovies = [
     }
 ];
 
-//set up logger
-app.use(morgan('combined', {stream: accessLogStream}));
-
 //GET requests
 app.get('/', (req, res) => {
     res.send('Welcome to Cinema Express!');
@@ -78,8 +78,18 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
+//set up logger
+app.use(morgan('combined', {stream: accessLogStream}));
+
 //serve files from public folder
 app.use('/documentation.html', express.static('public'));
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.use(bodyParser.json());
+app.use(methodOverride());
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
