@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation</title>
+    <title>Cinema Express Documentation</title>
 </head>
 <body>
     <header>
@@ -20,11 +20,75 @@
                     <th scope="col">Request</th>
                     <th scope="col">URL</th>
                     <th scope="col">HTTP Method</th>
-                    <th scope="col">Authorization</th>
-                    <th scope="col">Request Body</th>
-                    <th scope="col">Response Body</th>
+                    <th scope="col">Request Data Format</th>
+                    <th scope="col">Response Data Format</th>
                 </tr>
             </thead>
+            <tbody>
+                <tr>
+                    <td>Allows users to register</td>
+                    <td>/users</td>
+                    <td>POST</td>
+                    <td>None</td>
+                    <td>JSON object holding data about the user to add.</td>
+                </tr>
+                <tr>
+                    <td>Allows users to update their information</td>
+                    <td>/users/:id</td>
+                    <td>PUT</td>
+                    <td>JSON object holding data to update.</td>
+                    <td>JSON oject holding data about the user that was updated.</td>
+                </tr>
+                <tr>
+                    <td>Allows users to ADD movies to favorite movies</td>
+                    <td>/users/:id/:movieTitle</td>
+                    <td>POST</td>
+                    <td>None</td>
+                    <td>Text message indicating the selected movie was successfully added to the user's favorites list.</td>
+                </tr>
+                <tr>
+                    <td>Allows users to DELETE movies from favorite movies</td>
+                    <td>/users/:id/movieTitle</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td>Text indicating the selected movie was successfully removed from the user's favorites list.</td>
+                </tr>
+                <tr>
+                    <td>Allows users to deregister</td>
+                    <td>/users/:id</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td>Text indicating the user's profile has been deleted.</td>
+                </tr>
+                <tr>
+                    <td>Get a list of ALL movies</td>
+                    <td>/movies</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>An array of JSON objects holding data on ALL movies in the database.</td>
+                </tr>
+                <tr>
+                    <td>Get data on a single movie by title</td>
+                    <td>/movies/:title</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>JSON object holding data about the requested movie.</td>
+                </tr>
+                <tr>
+                    <td>Get data about a genre by name or title</td>
+                    <td>/movies/genre/:genreName</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>JSON object holding data about the requested genre.</td>
+                </tr>
+                <tr>
+                    <td>Get data about a director by name</td>
+                    <td>/movies/directors/:directorName</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>JSON object holding data about the requested director.</td>
+                </tr>
+            </tbody>
         </table>
     </header>
 
