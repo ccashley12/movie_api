@@ -33,7 +33,7 @@ let topMovies = [
             "Birth":1952.0
         },
         "ImageURL":"https://www.imdb.com/title/tt0109830/mediaviewer/rm1954748672/?ref_=tt_ov_i",
-        "Featured":false    
+        "Featured":true    
     },
     {
         "Title":"Pulp Fiction",
@@ -48,7 +48,7 @@ let topMovies = [
             "Birth":1963.0
         },
         "ImageURL":"https://www.imdb.com/title/tt0110912/mediaviewer/rm1959546112/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     },
     {
         "Title":"The Matrix",
@@ -68,7 +68,7 @@ let topMovies = [
             "Birth":1967.0
         },
         "ImageURL":"https://www.imdb.com/title/tt0133093/mediaviewer/rm525547776/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     },
     {
         "Title":"Charlie's Angels",
@@ -83,7 +83,7 @@ let topMovies = [
             "Birth":1968.0
         },
         "ImageURL":"https://www.imdb.com/title/tt0160127/mediaviewer/rm270011392/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     },
     {
         "Title":"American Psycho",
@@ -98,7 +98,7 @@ let topMovies = [
             "Birth":1953.0
         },
         "ImageURL":"https://www.imdb.com/title/tt0144084/mediaviewer/rm3296681472/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     },
     {
         "Title":"Donnie Darko",
@@ -113,7 +113,7 @@ let topMovies = [
             "Birth":1975.0
         },
         "ImageURL":"https://www.imdb.com/title/tt0246578/mediaviewer/rm1527459840/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     },
     {
         "Title":"Perks of Being a Wallflower",
@@ -128,7 +128,7 @@ let topMovies = [
             "Birth":1970.0
         },
         "ImageURL":"https://www.imdb.com/title/tt1659337/mediaviewer/rm2134748161/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     },
     {
         "Title":"Parasite",
@@ -143,7 +143,7 @@ let topMovies = [
             "Birth":1969.0
         },
         "ImageURL":"https://www.imdb.com/title/tt6751668/mediaviewer/rm3194916865/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     },
     {
         "Title":"Everything Everywhere All at Once",
@@ -163,7 +163,7 @@ let topMovies = [
             "Birth":1987.0
         },
         "ImageURL":"https://www.imdb.com/title/tt6710474/mediaviewer/rm316021249/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     },
     {
         "Title":"Poor Things",
@@ -178,7 +178,7 @@ let topMovies = [
             "Birth":1963.0
         },
         "ImageURL":"https://www.imdb.com/title/tt0110912/mediaviewer/rm1959546112/?ref_=tt_ov_i",
-        "Featured":false
+        "Featured":true
     }
 ];
 
