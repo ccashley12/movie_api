@@ -44,7 +44,7 @@ let topMovies = [
         },
         "Director": {
             "Name":"Quentin Tarantino",
-            "Bio": "Quentin Jerome Tarantino was born in Knoxville, Tennessee. His father, Tony Tarantino, is an Italian-American actor and musician from New York, and his mother, Connie (McHugh), is a nurse from Tennessee. Quentin moved with his mother to Torrance, California, when he was four years old. In January of 1992, first-time writer-director Tarantino's Reservoir Dogs (1992) appeared at the Sundance Film Festival. The film garnered critical acclaim and the director became a legend immediately. Two years later, he followed up Dogs success with Pulp Fiction (1994) which premiered at the Cannes film festival, winning the coveted Palme D\'Or Award. At the 1995 Academy Awards, it was nominated for the best picture, best director and best original screenplay. Tarantino and writing partner Roger Avary came away with the award only for best original screenplay.",
+            "Bio": "Quentin Jerome Tarantino was born in Knoxville, Tennessee. His father, Tony Tarantino, is an Italian-American actor and musician from New York, and his mother, Connie (McHugh), is a nurse from Tennessee. Quentin moved with his mother to Torrance, California, when he was four years old. In January of 1992, first-time writer-director Tarantino's Reservoir Dogs (1992) appeared at the Sundance Film Festival. The film garnered critical acclaim and the director became a legend immediately. Two years later, he followed up Dogs success with Pulp Fiction (1994) which premiered at the Cannes film festival, winning the coveted Palme D'Or Award. At the 1995 Academy Awards, it was nominated for the best picture, best director and best original screenplay. Tarantino and writing partner Roger Avary came away with the award only for best original screenplay.",
             "Birth":1963.0
         },
         "ImageURL":"https://www.imdb.com/title/tt0110912/mediaviewer/rm1959546112/?ref_=tt_ov_i",
@@ -116,18 +116,18 @@ let topMovies = [
         "Featured":true
     },
     {
-        "Title":"Perks of Being a Wallflower",
-        "Description":"Based on the novel written by Stephen Chbosky, this is about 15-year-old Charlie (Logan Lerman), an endearing and naive outsider, coping with first love (Emma Watson), the suicide of his best friend, and his own mental illness while struggling to find a group of people with whom he belongs. The introvert freshman is taken under the wings of two seniors, Sam and Patrick, who welcome him to the real world.",
+        "Title":"Kill Bill: Vol. 1",
+        "Description":"The lead character, called 'The Bride,' was a member of the Deadly Viper Assassination Squad, led by her lover 'Bill.' Upon realizing she was pregnant with Bill's child, 'The Bride' decided to escape her life as a killer. She fled to Texas, met a young man, who, on the day of their wedding rehearsal was gunned down by an angry and jealous Bill (with the assistance of the Deadly Viper Assassination Squad). Four years later, 'The Bride' wakes from a coma, and discovers her baby is gone. She, then, decides to seek revenge upon the five people who destroyed her life and killed her baby. The saga of Kill Bill Volume I begins.",
         "Genre": {
-            "Name":"Drama",
-            "Description":"Drama is defined as a form of performance that involves conflicts, emotions, and the portrayal of human experiences through dialogue and action."
+            "Name":"Thriller",
+            "Description":"One that thrills. Especially : a work of fiction or drama designed to hold the interest by the use of a high degree of intrigue, adventure, or suspense."
         },
         "Director": {
-            "Name":"Stephen Chbosky",
-            "Bio": "Stephen Chbosky was born on January 25, 1970 in Pittsburgh, Pennsylvania, USA. He is a writer and producer, known for The Perks of Being a Wallflower (2012), Wonder (2017) and Rent (2005). He has been married to Liz Maccie since September 18, 2010. They have two children.",
-            "Birth":1970.0
+            "Name":"Quentin Tarantino",
+            "Bio": "Quentin Jerome Tarantino was born in Knoxville, Tennessee. His father, Tony Tarantino, is an Italian-American actor and musician from New York, and his mother, Connie (McHugh), is a nurse from Tennessee. Quentin moved with his mother to Torrance, California, when he was four years old. In January of 1992, first-time writer-director Tarantino's Reservoir Dogs (1992) appeared at the Sundance Film Festival. The film garnered critical acclaim and the director became a legend immediately. Two years later, he followed up Dogs success with Pulp Fiction (1994) which premiered at the Cannes film festival, winning the coveted Palme D'Or Award. At the 1995 Academy Awards, it was nominated for the best picture, best director and best original screenplay. Tarantino and writing partner Roger Avary came away with the award only for best original screenplay.",
+            "Birth":1963.0
         },
-        "ImageURL":"https://www.imdb.com/title/tt1659337/mediaviewer/rm2134748161/?ref_=tt_ov_i",
+        "ImageURL":"https://www.imdb.com/title/tt0266697/mediaviewer/rm2033140224/?ref_=tt_ov_i",
         "Featured":true
     },
     {
