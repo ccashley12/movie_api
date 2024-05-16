@@ -8,10 +8,10 @@ mongoose.connect('mongodb://localhost:27017/ceDB', { useNewUrlParser: true, useU
 
 const express = require('express'),
     app = express(),
-    bodyParser = require('body-parser'),
     uuid = require('uuid');
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
 
 let users = [
     {
