@@ -218,7 +218,7 @@ app.post('/users', async (req, res) => {
 });
 
 //UPDATE Allow users to update their info
-app.put('/users', (req, res) => {
+app.put('/users/:id', (req, res) => {
     const { id } = req.params;
     const updatedUser = req.body;
 
