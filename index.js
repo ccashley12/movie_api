@@ -1,14 +1,19 @@
+const express = require('express'),
+    app = express(),
+    uuid = require('uuid');
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const Genres = Models.Genre;
+const Direcetors = Models.Diretor;
 
-mongoose.connect('mongodb://localhost:27017/ceDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-const express = require('express'),
-    app = express(),
-    uuid = require('uuid');
+mongoose.connect('mongodb://localhost:27017/ceDB', { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
@@ -241,20 +246,57 @@ app.get('/users/:Username', async (req,res) => {
         });
 });
 
-//UPDATE Allow users to update their info
-app.put('/users/:id', (req, res) => {
-    const { id } = req.params;
-    const updatedUser = req.body;
+//UPDATE a user's info, by username
+app.put('/users/:Username', async (req,res) => {
+    await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+        {
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+        }
+    },
+    { new: true })
+    .then((updatedUser) => {
+        res.json(updatedUser);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    })
 
-    let user = users.find( user => user.id == id );
+});
 
-    if (user) {
-        user.name = updatedUser.name;
-        res.status(200).json(user);
-    } else {
-        res.status(400).send('No such user.')
-    }
-})
+//Add a movie to a user's list of favorites
+app.post('/users/:Username/movies/:MovieID', async (req,res) => {
+    await Users.findOneAndUpdate({ Username: req.params.Username }, {
+        $push: { FavoriteMovies: req.params.MovieID }
+    },
+    { new: true })
+    .then((updatedUser) => {
+        res.json(updatedUser);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
+
+//Delete a user by username
+app.delete('/users/:Username', async (req, res) => {
+    await Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+        if (!user) {
+            res.status(400).send(req.params.Username + ' was not found');
+        } else {
+            res.status(200).send(req.params.Username + 'was deleted.');
+        }
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
 
 //POST Allow users to add movies to favorite movies
 app.post('/users/:id/:movieTitle', (req, res) => {
