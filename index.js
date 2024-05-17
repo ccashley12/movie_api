@@ -195,6 +195,35 @@ let topMovies = [
     }
 ];
 
+//Default text when at /
+app.get('/', (req, res) => {
+    res.send('Welcome to Cinema Express!');
+});
+
+//Return list of ALL movies
+app.get('/movies', (req, res) => {
+    Movies.find()
+    .then ((movies) => {
+        res.status(201).json(movies);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err)
+    });
+});
+
+//Get movie info with specific title
+app.get('/movies/:Title', (req, res) => {
+    Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+        res.json(movie);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Erro: ' + err);
+    });
+});
+
 //Add a user
 app.post('/users', async (req, res) => {
     await Users.findOne({ Username: req.body.Username })
