@@ -212,7 +212,7 @@ app.get('/movies', (req, res) => {
     });
 });
 
-//Get movie info with specific title
+//Get movie info for specific movie title
 app.get('/movies/:Title', (req, res) => {
     Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
@@ -223,6 +223,9 @@ app.get('/movies/:Title', (req, res) => {
         res.status(500).send('Erro: ' + err);
     });
 });
+
+//Get genre info for specific genre name
+app.get('/genre/:')
 
 //Add a user
 app.post('/users', async (req, res) => {
