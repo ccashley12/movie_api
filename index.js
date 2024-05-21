@@ -225,7 +225,16 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //Get genre info for specific genre name
-app.get('/genre/:')
+app.get('/genre/:Name', (req, res) => {
+    Genres.findOne({ Name: req.params.Name })
+    .then((genre) => {
+        res.json(genre.Description);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
 
 //Add a user
 app.post('/users', async (req, res) => {
