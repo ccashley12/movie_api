@@ -201,10 +201,10 @@ app.get('/', (req, res) => {
 });
 
 //Return list of ALL movies
-app.get('/movies', (req, res) => {
+app.get('/movies', async (req, res) => {
     Movies.find()
-    .then ((movies) => {
-        res.status(201).json(movies);
+    .then ((movie) => {
+        res.status(201).json(movie);
     })
     .catch((err) => {
         console.error(err);
@@ -213,7 +213,7 @@ app.get('/movies', (req, res) => {
 });
 
 //Get movie info for specific movie title
-app.get('/movies/:Title', (req, res) => {
+app.get('/movies/:Title', async (req, res) => {
     Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
         res.json(movie);
@@ -225,7 +225,7 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //Get genre info for specific genre name
-app.get('/genre/:Name', (req, res) => {
+app.get('/genre/:Name', async (req, res) => {
     Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
         res.json(genre.Description);
@@ -323,6 +323,22 @@ app.post('/users/:Username/movies/:MovieID', async (req,res) => {
     });
 });
 
+//Delete a movie from a user's list of favorites
+app.delete('/users/:Username/movies/:MovieID', async (req,res) => {
+    await Users.findOneAndUpdate({ Username: req.params.Username }, {
+        $pull: { FavoriteMovies: req.params.MovieID }
+    },
+    { new: true })
+    .then((updatedUser) => {
+        res.json(updatedUser);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error' + err);
+    });
+});
+
+
 //Delete a user by username
 app.delete('/users/:Username', async (req, res) => {
     await Users.findOneAndRemove({ Username: req.params.Username })
@@ -338,89 +354,6 @@ app.delete('/users/:Username', async (req, res) => {
         res.status(500).send('Error: ' + err);
     });
 });
-
-//POST Allow users to add movies to favorite movies
-app.post('/users/:id/:movieTitle', (req, res) => {
-    const { id, movieTitle } = req.params;
-
-    let user = users.find( user => user.id == id );
-
-    if (user) {
-        user.favoriteMovies.push(movieTitle);
-        res.status(200).send(`${movieTitle} had been added to users ${id}'s array.`);
-    } else {
-        res.status(400).send('No such movie.')
-    }
-})
-
-//DELETE Allow users to remove movies from favorite movies
-app.delete('/users/:id/:movieTitle', (req, res) => {
-    const { id, movieTitle } = req.params;
-
-    let user = users.find( user => user.id == id );
-
-    if (user) {
-        user.favoriteMovies = user.favoriteMovies.filter( title => title !== movieTitle);
-        res.status(200).send(`${movieTitle} had been removed from users ${id}'s array.`);
-    } else {
-        res.status(400).send('No such movie.')
-    }
-})
-
-//DELETE Allow users to deregister
-app.delete('/users/:id', (req, res) => {
-    const { id } = req.params;
-
-    let user = users.find( user => user.id == id );
-
-    if (user) {
-        users = users.filter( user => user.id != id);
-        res.status(200).send(`User ${id} has been deleted.`);
-    } else {
-        res.status(400).send('No such movie.')
-    }
-})
-
-//READ Get list of ALL movies
-app.get('/movies', (req, res) => {
-    res.status(200).json(topMovies);
-})
-
-//READ Get data on a single movie
-app.get('/movies/:title', (req, res) => {
-    const { title } = req.params;
-    const movie = topMovies.find( movie => movie.Title === title );
-
-    if (movie) {
-        res.status(200).json(movie);
-    } else {
-        res.status(400).send('No such movie.')
-    }
-})
-
-//READ Get data about a genre by name/title
-app.get('/movies/genre/:genreName', (req, res) => {
-    const { genreName } = req.params;
-    const genre = topMovies.find( movie => movie.Genre.Name === genreName ).Genre;
-
-    if (genre) {
-        res.status(200).json(genre);
-    } else {
-        res.status(400).send('No such genre.')
-    }
-})
-
-//READ Get data about a director by name
-app.get('/movies/directors/:directorName', (req, res) => {
-    const { directorName } = req.params;
-    const director = topMovies.find( movie => movie.Director.Name === directorName ).Director;
-
-    if (director) {
-        res.status(200).json(director);
-    } else {
-        res.status(400).send('No such director.')
-    }
-})
 
 //listen for requests
 app.listen(8080, () => {
