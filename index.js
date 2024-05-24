@@ -338,7 +338,6 @@ app.delete('/users/:Username/movies/:MovieID', async (req,res) => {
     });
 });
 
-
 //Delete a user by username
 app.delete('/users/:Username', async (req, res) => {
     await Users.findOneAndRemove({ Username: req.params.Username })
