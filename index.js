@@ -237,7 +237,7 @@ app.get('/genre/:Name', async (req, res) => {
 });
 
 //Get info about Director by name
-app.get('/director/:Name', async (req, res) => {
+app.get('/movies/director/:Name', async (req, res) => {
     Directors.findOne({ Name: req.params.Name })
     .then((director) => {
         res.json(director);
