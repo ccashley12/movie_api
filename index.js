@@ -8,7 +8,7 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
-const Direcetors = Models.Diretor;
+const Directors = Models.Director;
 
 mongoose.connect('mongodb://localhost:27017/ceDB', { 
     useNewUrlParser: true, 
@@ -229,6 +229,18 @@ app.get('/genre/:Name', async (req, res) => {
     Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
         res.json(genre.Description);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
+
+//Get info about Director by name
+app.get('/director/:Name', async (req, res) => {
+    Directors.findOne({ Name: req.params.Name })
+    .then((director) => {
+        res.json(director);
     })
     .catch((err) => {
         console.error(err);
