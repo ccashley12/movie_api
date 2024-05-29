@@ -202,7 +202,7 @@ app.get('/', (req, res) => {
 
 //Return list of ALL movies
 app.get('/movies', async (req, res) => {
-    Movies.find()
+    await Movies.find()
     .then ((movie) => {
         res.status(201).json(movie);
     })
@@ -214,7 +214,7 @@ app.get('/movies', async (req, res) => {
 
 //Get movie info for specific movie title
 app.get('/movies/:Title', async (req, res) => {
-    Movies.findOne({ Title: req.params.Title })
+   await Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
         res.json(movie);
     })
@@ -226,9 +226,9 @@ app.get('/movies/:Title', async (req, res) => {
 
 //Get genre info for specific genre name
 app.get('/genre/:Name', async (req, res) => {
-    Genres.findOne({ Name: req.params.Name })
+    await Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
-        res.json(genre.Description);
+        res.json(genre);
     })
     .catch((err) => {
         console.error(err);
@@ -237,10 +237,10 @@ app.get('/genre/:Name', async (req, res) => {
 });
 
 //Get info about Director by name
-app.get('/movies/director/:Name', async (req, res) => {
-    Directors.findOne({ Name: req.params.Name })
-    .then((director) => {
-        res.json(director);
+app.get('/movies/directors/:directorName', async (req, res) => {
+    await Movies.findOne({ 'Director.Name': req.params.directorName })
+    .then((movie) => {
+        res.json(movie.Director);
     })
     .catch((err) => {
         console.error(err);
