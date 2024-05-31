@@ -1,4 +1,4 @@
-const express = require('express'),
+const express = require('express');
     app = express(),
     uuid = require('uuid');
 
@@ -10,6 +10,7 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
+//Connect to database locally
 mongoose.connect('mongodb://localhost:27017/ceDB', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true 
@@ -196,12 +197,14 @@ let topMovies = [
 ];
 
 //Default text when at /
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
     res.send("Welcome to Cinema Express!");
 });
 
+app.get('')
+
 //Return list of ALL movies
-app.get("/movies", async (req, res) => {
+app.get('/movies', async (req, res) => {
     await Movies.find()
     .then((movies) => {
         res.status(201).json(movies);
@@ -213,55 +216,55 @@ app.get("/movies", async (req, res) => {
 });
 
 //Get movie info for specific movie title
-app.get("/movies/:Title", async (req, res) => {
+app.get('/movies/:Title', async (req, res) => {
    await Movies.findOne({ Title: req.params.Title })
     .then((movies) => {
         res.status(201).json(movies);
     })
     .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
     });
 });
 
 //Get list of ALL Genres
-app.get("/genre", async (req, res) => {
+app.get('/genre', async (req, res) => {
     await Genres.find()
     .then((genres) => {
         res.status(201).json(genres);
     })
     .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
     });
 });
 
 //Get genre info for specific genre name
-app.get("/genre/:Name", async (req, res) => {
+app.get('/genre/:Name', async (req, res) => {
     await Genres.findOne({ Name: req.params.Name })
     .then((genres) => {
         res.status(201).json(genres);
     })
     .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
     });
 });
 
 //Get info about Director by name
-app.get("/director/:Name", async (req, res) => {
+app.get('/director/:Name', async (req, res) => {
     await Directors.findOne({ Name: req.params.Name })
     .then((directors) => {
         res.status(201).json(directors);
     })
     .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
     });
 });
 
 //Add a user
-app.post("/users", async (req, res) => {
+app.post('/users', async (req, res) => {
     await Users.findOne({ Username: req.body.Username })
         .then((users) => {
             if (users) {
@@ -277,7 +280,7 @@ app.post("/users", async (req, res) => {
                 .then((user) =>{res.status(201).json(users) })
             .catch((error) => {
                 console.error(error);
-                res.status(500).send("Error: " + error);
+                res.status(500).send('Error: ' + error);
             })
         }
     })
@@ -288,31 +291,31 @@ app.post("/users", async (req, res) => {
 });
 
 //Get all users
-app.get("/users", async (req, res) => {
+app.get('/users', async (req, res) => {
     await Users.find()
         .then((users) => {
             res.status(201).json(users);
         })
         .catch((err) => {
             console.error(err);
-            res.status(500).send("Error: " + err);
+            res.status(500).send('Error: ' + err);
         });
 });
 
 //Get a user by username
-app.get("/users/:Username", async (req,res) => {
+app.get('/users/:Username', async (req,res) => {
     await Users.findOne({ Username: req.params.Username})
         .then((users) => {
             res.status(201).json(users);
         })
         .catch((err) => {
             console.error(err);
-            res.status(500).send("Error: " + err);
+            res.status(500).send('Error: ' + err);
         });
 });
 
 //UPDATE a user's info, by username
-app.put("/users/:Username", async (req,res) => {
+app.put('/users/:Username', async (req,res) => {
     await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
         {
             Username: req.body.Username,
@@ -327,13 +330,13 @@ app.put("/users/:Username", async (req,res) => {
     })
     .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
     })
 
 });
 
 //Add a movie to a user's list of favorites
-app.post("/users/:Username/movies/:MovieID", async (req,res) => {
+app.post('/users/:Username/movies/:MovieID', async (req,res) => {
     await Users.findOneAndUpdate({ Username: req.params.Username }, {
         $push: { FavoriteMovies: req.params.MovieID }
     },
@@ -343,12 +346,12 @@ app.post("/users/:Username/movies/:MovieID", async (req,res) => {
     })
     .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
     });
 });
 
 //Delete a movie from a user's list of favorites
-app.delete("/users/:Username/movies/:MovieID", async (req,res) => {
+app.delete('/users/:Username/movies/:MovieID', async (req,res) => {
     await Users.findOneAndUpdate({ Username: req.params.Username }, {
         $pull: { FavoriteMovies: req.params.MovieID }
     },
@@ -358,12 +361,12 @@ app.delete("/users/:Username/movies/:MovieID", async (req,res) => {
     })
     .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
     });
 });
 
 //Delete a user by username
-app.delete("/users/:Username", async (req, res) => {
+app.delete('/users/:Username', async (req, res) => {
     await Users.findOneAndDelete({ Username: req.params.Username })
     .then((user) => {
         if (!user) {
@@ -374,11 +377,11 @@ app.delete("/users/:Username", async (req, res) => {
     })
     .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send('Error: ' + err);
     });
 });
 
 //listen for requests
 app.listen(8080, () => {
-    console.log("Your app is listening on port 8080.");
+    console.log('Your app is listening on port 8080.');
 });
