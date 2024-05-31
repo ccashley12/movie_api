@@ -201,7 +201,10 @@ app.get('/', (req, res) => {
     res.send("Welcome to Cinema Express!");
 });
 
-app.get('')
+//Return documentation page explaining database
+app.get('/documentation', (req, res) => {
+    res.sendFile('public/documentation.html', { root: __dirname});
+});
 
 //Return list of ALL movies
 app.get('/movies', async (req, res) => {
