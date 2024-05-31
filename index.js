@@ -221,8 +221,8 @@ app.get('/movies', async (req, res) => {
 //Get movie info for specific movie title
 app.get('/movies/:Title', async (req, res) => {
    await Movies.findOne({ Title: req.params.Title })
-    .then((movies) => {
-        res.status(201).json(movies);
+    .then((movie) => {
+        res.status(201).json(movie);
     })
     .catch((err) => {
         console.error(err);
@@ -231,10 +231,10 @@ app.get('/movies/:Title', async (req, res) => {
 });
 
 //Get list of ALL Genres
-app.get('/genre', async (req, res) => {
+app.get('/genres', async (req, res) => {
     await Genres.find()
-    .then((genres) => {
-        res.status(201).json(genres);
+    .then((genre) => {
+        res.status(201).json(genre);
     })
     .catch((err) => {
         console.error(err);
@@ -243,10 +243,22 @@ app.get('/genre', async (req, res) => {
 });
 
 //Get genre info for specific genre name
-app.get('/genre/:Name', async (req, res) => {
+app.get('/genres/:Name', async (req, res) => {
     await Genres.findOne({ Name: req.params.Name })
-    .then((genres) => {
-        res.status(201).json(genres);
+    .then((genre) => {
+        res.status(201).json(genre);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
+
+//Get info about ALL directors
+app.get('/directors', async (req, res) => {
+    await Directors.find()
+    .then((director) => {
+        res.status(201).json(director);
     })
     .catch((err) => {
         console.error(err);
@@ -255,10 +267,10 @@ app.get('/genre/:Name', async (req, res) => {
 });
 
 //Get info about Director by name
-app.get('/director/:Name', async (req, res) => {
+app.get('/directors/:Name', async (req, res) => {
     await Directors.findOne({ Name: req.params.Name })
-    .then((directors) => {
-        res.status(201).json(directors);
+    .then((director) => {
+        res.status(201).json(director);
     })
     .catch((err) => {
         console.error(err);
@@ -269,8 +281,8 @@ app.get('/director/:Name', async (req, res) => {
 //Add a user
 app.post('/users', async (req, res) => {
     await Users.findOne({ Username: req.body.Username })
-        .then((users) => {
-            if (users) {
+        .then((user) => {
+            if (user) {
                 return res.status(400).send(req.body.Username + 'already exists');
             } else {
             Users
@@ -280,7 +292,7 @@ app.post('/users', async (req, res) => {
                     Email: req.body.Email,
                     Birthday: req.body.Birthday
                 })
-                .then((user) =>{res.status(201).json(users) })
+                .then((user) =>{res.status(201).json(user) })
             .catch((error) => {
                 console.error(error);
                 res.status(500).send('Error: ' + error);
@@ -296,8 +308,8 @@ app.post('/users', async (req, res) => {
 //Get all users
 app.get('/users', async (req, res) => {
     await Users.find()
-        .then((users) => {
-            res.status(201).json(users);
+        .then((user) => {
+            res.status(201).json(user);
         })
         .catch((err) => {
             console.error(err);
@@ -308,8 +320,8 @@ app.get('/users', async (req, res) => {
 //Get a user by username
 app.get('/users/:Username', async (req,res) => {
     await Users.findOne({ Username: req.params.Username})
-        .then((users) => {
-            res.status(201).json(users);
+        .then((user) => {
+            res.status(201).json(user);
         })
         .catch((err) => {
             console.error(err);
