@@ -1,5 +1,5 @@
 const express = require('express');
-    app = express(),
+    morgan = require('morgan'),
     uuid = require('uuid');
 
 const mongoose = require('mongoose');
@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/ceDB', {
     useUnifiedTopology: true 
 });
 
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
@@ -203,7 +204,7 @@ app.get('/', (req, res) => {
 
 //Return documentation page explaining database
 app.get('/documentation', (req, res) => {
-    res.sendFile('public/documentation.html', { root: __dirname});
+    res.sendFile('public/documentation.html', { root: __dirname });
 });
 
 //Return list of ALL movies
