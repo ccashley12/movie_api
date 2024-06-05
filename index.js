@@ -236,13 +236,12 @@ app.get('/movies/:Title', async (req, res) => {
 //Get list of ALL Genres
 app.get('/genres', async (req, res) => {
     await Genres.find()
-    .then((genre) => {
-        res.status(201).json(genre);
+    .then((genres) => {
+        res.status(201).json(genres);
     })
     .catch((err) => {
-        console.error(err);
         res.status(500).send('Error: ' + err);
-    });
+    });  
 });
 
 //Get genre info for specific genre name
@@ -268,7 +267,7 @@ app.get('/directors', async (req, res) => {
         res.status(500).send('Error: ' + err);
     });
 });
-
+22
 //Get info about Director by name
 app.get('/directors/:Name', async (req, res) => {
     await Directors.findOne({ Name: req.params.Name })
