@@ -1,9 +1,9 @@
-const express = require('express');
-    morgan = require('morgan'),
-    fs = require('fs'),
-    path = require('pathj');
+const express = require('express'),
+    bodyParser = require('body-parser'),
     uuid = require('uuid');
 
+const morgan = require('morgan');
+const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
@@ -13,14 +13,15 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 
 //Connect to database locally
-mongoose.connect('mongodb://localhost:27017/ceDB', { 
+mongoose.connect('mongodb://127.0.0.1:27017/ceDB', { 
     useNewUrlParser: true, 
     useUnifiedTopology: true 
 });
 
-const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+app.use(bodyParser.json());
+app.use(morgan('common'));
 
 let users = [
     {
@@ -204,11 +205,6 @@ app.get('/', (req, res) => {
     res.send("Welcome to Cinema Express!");
 });
 
-//Return documentation page explaining database
-app.get('/documentation', (req, res) => {
-    res.sendFile('public/documentation.html', { root: __dirname });
-});
-
 //Return list of ALL movies
 app.get('/movies', async (req, res) => {
     await Movies.find()
@@ -234,10 +230,10 @@ app.get('/movies/:Title', async (req, res) => {
 });
 
 //Get list of ALL Genres
-app.get('/genres', async (req, res) => {
+app.get('/genre', async (req, res) => {
     await Genres.find()
-    .then((genres) => {
-        res.status(201).json(genres);
+    .then((Genre) => {
+        res.status(201).json(Genre);
     })
     .catch((err) => {
         res.status(500).send('Error: ' + err);
@@ -245,10 +241,10 @@ app.get('/genres', async (req, res) => {
 });
 
 //Get genre info for specific genre name
-app.get('/genres/:Name', async (req, res) => {
+app.get('/genre/:Name', async (req, res) => {
     await Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
-        res.status(201).json(genre);
+        res.json(genre.Name);
     })
     .catch((err) => {
         console.error(err);
@@ -397,6 +393,11 @@ app.delete('/users/:Username', async (req, res) => {
         res.status(500).send('Error: ' + err);
     });
 });
+
+//Access documentation.html using express.static
+app.use('/documentation', express.static('public'));
+
+
 
 //listen for requests
 app.listen(8080, () => {
