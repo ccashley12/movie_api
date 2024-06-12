@@ -1,16 +1,18 @@
-const express = require('express'),
-    bodyParser = require('body-parser'),
+const express = require('express');
+    morgan = require('morgan'),
+    fs = require('fs'),
+    path = require('path');
     uuid = require('uuid');
-
-const morgan = require('morgan');
-const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
-const Movies = Models.Movie;
-const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+// app.use(morgan('common'));
+
+//Access documentation.html using express.static
+app.use('/documentation', express.static('public'));
 
 //Connect to database locally
 mongoose.connect('mongodb://127.0.0.1:27017/ceDB', { 
@@ -18,10 +20,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/ceDB', {
     useUnifiedTopology: true 
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
-app.use(bodyParser.json());
-app.use(morgan('common'));
+const Movies = Models.Movie;
+const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
+
 
 let users = [
     {
@@ -393,11 +396,6 @@ app.delete('/users/:Username', async (req, res) => {
         res.status(500).send('Error: ' + err);
     });
 });
-
-//Access documentation.html using express.static
-app.use('/documentation', express.static('public'));
-
-
 
 //listen for requests
 app.listen(8080, () => {
