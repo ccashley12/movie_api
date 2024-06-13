@@ -9,7 +9,6 @@ const Models = require('./models.js');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
-// app.use(morgan('common'));
 
 //Access documentation.html using express.static
 app.use('/documentation', express.static('public'));
