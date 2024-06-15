@@ -14,10 +14,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use('/documentation', express.static('public'));
 
 //Connect to database locally
-mongoose.connect('mongodb://127.0.0.1:27017/ceDB', { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true 
-});
+mongoose.connect('mongodb://127.0.0.1:27017/ceDB');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -270,7 +267,7 @@ app.get('/directors', async (req, res) => {
 app.get('/directors/:Name', async (req, res) => {
     await Directors.findOne({ Name: req.params.Name })
     .then((director) => {
-        res.status(201).json(director);
+        res.status(201).json(director.Name);
     })
     .catch((err) => {
         console.error(err);
