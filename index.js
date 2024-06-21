@@ -10,11 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
-//Access documentation.html using express.static
-app.use('/documentation', express.static('public'));
-
 //Connect to database locally
-mongoose.connect('mongodb://127.0.0.1:27017/ceDB');
+mongoose.connect('mongodb://localhost:27017/ceDB');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -24,17 +21,19 @@ const Directors = Models.Director;
 
 let users = [
     {
-        id: 1,
-        name: 'Chrissy Baby',
-        favoriteMovies: ["Donnie Darko"]
+        username: 'chrissybaby7',
+        email: 'chrissybaby@email.com',
+        password: 'ADGTH7',
+        birthdate: '1990-04-18',
+        favoritemovies: [ 'Charlie\'s Angels' ]
 
     },
     {
         id: 2,
         name: 'Danny Boi',
-        fovoriteMovies: ["Pulp Fiction"]
+        fovoriteMovies: [ 'Pulp Fiction' ]
     }
-]
+];
 
 let topMovies = [
     {
@@ -219,60 +218,47 @@ app.get('/movies', async (req, res) => {
 //Get movie info for specific movie title
 app.get('/movies/:Title', async (req, res) => {
    await Movies.findOne({ Title: req.params.Title })
-    .then((movie) => {
-        res.status(201).json(movie);
+    .then((movies) => {
+        res.status(201).json(movies);
     })
     .catch((err) => {
         console.error(err);
         res.status(500).send('Error: ' + err);
     });
-});
-
-//Get list of ALL Genres
-app.get('/genre', async (req, res) => {
-    await Genres.find()
-    .then((Genre) => {
-        res.status(201).json(Genre);
-    })
-    .catch((err) => {
-        res.status(500).send('Error: ' + err);
-    });  
 });
 
 //Get genre info for specific genre name
-app.get('/genre/:Name', async (req, res) => {
-    await Genres.findOne({ Name: req.params.Name })
-    .then((genre) => {
-        res.json(genre.Name);
-    })
-    .catch((err) => {
+app.get('/movies/genre/:genreName', async (req, res) => {
+    try {
+        const genreName = req.params.genreName;
+        const movie = await Movies.findOne({ 'Genre.Name': genreName });
+
+        if (movie) {
+            res.status(201).json(movie.Genre);
+        } else {
+            res.status(404).send('No such genre found');
+        }
+    } catch (err) {
         console.error(err);
         res.status(500).send('Error: ' + err);
-    });
+    }
 });
 
-//Get info about ALL directors
-app.get('/directors', async (req, res) => {
-    await Directors.find()
-    .then((director) => {
-        res.status(201).json(director);
-    })
-    .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-    });
-});
-22
 //Get info about Director by name
-app.get('/directors/:Name', async (req, res) => {
-    await Directors.findOne({ Name: req.params.Name })
-    .then((director) => {
-        res.status(201).json(director.Name);
-    })
-    .catch((err) => {
+app.get('/movies/directors/:directorName', async (req, res) => {
+    try {
+        const directorName = req.params.directorName;
+        const movie = await Movies.findOne({ 'Director.Name': directorName });
+
+        if (movie) {
+            res.status(201).json(movie.Director);
+        } else {
+            res.status(404).send('No such director');
+        }
+    } catch(err) {
         console.error(err);
         res.status(500).send('Error: ' + err);
-    });
+    }
 });
 
 //Add a user
@@ -316,9 +302,9 @@ app.get('/users', async (req, res) => {
 
 //Get a user by username
 app.get('/users/:Username', async (req,res) => {
-    await Users.findOne({ Username: req.params.Username})
+    await Users.findOne({ Username: req.params.Username })
         .then((user) => {
-            res.status(201).json(user);
+            res.json(user);
         })
         .catch((err) => {
             console.error(err);
@@ -377,14 +363,14 @@ app.delete('/users/:Username/movies/:MovieID', async (req,res) => {
     });
 });
 
-//Delete a user by username
+//Allow users to deregister
 app.delete('/users/:Username', async (req, res) => {
     await Users.findOneAndDelete({ Username: req.params.Username })
     .then((user) => {
         if (!user) {
             res.status(400).send(req.params.Username + ' was not found');
         } else {
-            res.status(200).send(req.params.Username + 'was deleted.');
+            res.status(200).send(req.params.Username + ' was deleted.');
         }
     })
     .catch((err) => {
@@ -392,6 +378,15 @@ app.delete('/users/:Username', async (req, res) => {
         res.status(500).send('Error: ' + err);
     });
 });
+
+// Middleware for serving static files from the public directory
+app.use(express.static('public'));
+
+// Error-handling middleware called when an error occurs
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+})
 
 //listen for requests
 app.listen(8080, () => {
