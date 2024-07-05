@@ -10,6 +10,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
+
 //Connect to database locally
 mongoose.connect('mongodb://localhost:27017/ceDB');
 
@@ -204,15 +209,16 @@ app.get('/', (req, res) => {
 });
 
 //Return list of ALL movies
-app.get('/movies', async (req, res) => {
-    await Movies.find()
-    .then((movies) => {
-        res.status(201).json(movies);
-    })
-    .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-    });
+app.get('/movies', passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+        await Movies.find()
+        .then((movies) => {
+            res.status(201).json(movies);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 //Get movie info for specific movie title
