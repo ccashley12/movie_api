@@ -10,6 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
+const cors = require('cors');
+app.use(cors());
+
 let auth = require('./auth')(app);
 
 const passport = require('passport');
@@ -269,6 +272,7 @@ app.get('/movies/directors/:directorName', async (req, res) => {
 
 //Add a user
 app.post('/users', async (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.Password);
     await Users.findOne({ Username: req.body.Username })
         .then((user) => {
             if (user) {
@@ -319,23 +323,27 @@ app.get('/users/:Username', async (req,res) => {
 });
 
 //UPDATE a user's info, by username
-app.put('/users/:Username', async (req,res) => {
-    await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
-        {
-            Username: req.body.Username,
-            Password: req.body.Password,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday
+app.put('/users/:Username', passport.authenticate ('jwt', { session: false }), 
+    async (req,res) => {
+        if(req.user.Username !== req.params.Username){
+            return res.status(400).send('Permission denied');
         }
-    },
-    { new: true })
-    .then((updatedUser) => {
-        res.json(updatedUser);
-    })
-    .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-    })
+        await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+            {
+                Username: req.body.Username,
+                Password: req.body.Password,
+                Email: req.body.Email,
+                Birthday: req.body.Birthday
+            }
+        },
+        { new: true })
+        .then((updatedUser) => {
+            res.json(updatedUser);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        })
 
 });
 
