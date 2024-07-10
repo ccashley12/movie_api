@@ -13,6 +13,8 @@ app.use(express.urlencoded({ extended: true}));
 const cors = require('cors');
 app.use(cors());
 
+const { check, validationResult } = require('express-validator');
+
 let auth = require('./auth')(app);
 
 const passport = require('passport');
@@ -271,31 +273,43 @@ app.get('/movies/directors/:directorName', async (req, res) => {
 });
 
 //Add a user
-app.post('/users', async (req, res) => {
-    let hashedPassword = Users.hashPassword(req.body.Password);
-    await Users.findOne({ Username: req.body.Username })
-        .then((user) => {
-            if (user) {
-                return res.status(400).send(req.body.Username + 'already exists');
-            } else {
-            Users
-                .create({
-                    Username: req.body.Username,
-                    Password: req.body.Password,
-                    Email: req.body.Email,
-                    Birthday: req.body.Birthday
-                })
-                .then((user) =>{res.status(201).json(user) })
-            .catch((error) => {
-                console.error(error);
-                res.status(500).send('Error: ' + error);
-            })
+app.post('/users', 
+    [
+        check('Username', 'Username is required').isLength({min: 5}),
+        check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+        check('Password', 'Password is required').not().isEmpty(),
+        check('Email', 'Email does not appear to be valid').isEmail()
+    ],  async (req, res) => {
+
+        let errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
         }
-    })
-    .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-    });
+        let hashedPassword = Users.hashPassword(req.body.Password);
+        await Users.findOne({ Username: req.body.Username })
+            .then((user) => {
+                if (user) {
+                    return res.status(400).send(req.body.Username + 'already exists');
+                } else {
+                Users
+                    .create({
+                        Username: req.body.Username,
+                        Password: req.body.Password,
+                        Email: req.body.Email,
+                        Birthday: req.body.Birthday
+                    })
+                    .then((user) =>{res.status(201).json(user) })
+                .catch((error) => {
+                    console.error(error);
+                    res.status(500).send('Error: ' + error);
+                })
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+        });
 });
 
 //Get all users
