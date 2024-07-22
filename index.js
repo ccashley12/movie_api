@@ -281,8 +281,9 @@ app.post('/users',
         check('Username', 'Username is required').isLength({min: 5}),
         check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
         check('Password', 'Password is required').not().isEmpty(),
-        check('Email', 'Email does not appear to be valid').isEmail()
-    ],  async (req, res) => {
+        check('Email', 'Email appears to be invalid').isEmail()
+    ],  
+        async (req, res) => {
 
         let errors = validationResult(req);
 
@@ -342,27 +343,39 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }),
 });
 
 //UPDATE a user's info, by username
-app.put('/users/:Username', passport.authenticate ('jwt', { session: false }), 
-    async (req,res) => {
-        if(req.user.Username !== req.params.Username){
-            return res.status(400).send('Permission denied');
-        }
-        await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
-            {
-                Username: req.body.Username,
-                Password: req.body.Password,
-                Email: req.body.Email,
-                Birthday: req.body.Birthday
+app.put('/users/:Username', passport.authenticate ('jwt', { session: false }),
+    [
+        check('Username', 'Username is required').isLength({min: 5}),
+        check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+        check('Password', 'Password is required').not().isEmpty(),
+        check('Email', 'Email appears to be invalid').isEmail()
+    ],
+        async (req,res) => {
+            let errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(422).json({ errors: errors.array() });
             }
-        },
-        { new: true })
-        .then((updatedUser) => {
-            res.json(updatedUser);
-        })
-        .catch((err) => {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        })
+
+            if(req.user.Username !== req.params.Username){
+                return res.status(400).send('Permission denied');
+            }
+            await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+                {
+                    Username: req.body.Username,
+                    Password: req.body.Password,
+                    Email: req.body.Email,
+                    Birthday: req.body.Birthday
+                }
+            },
+            { new: true })
+            .then((updatedUser) => {
+                res.json(updatedUser);
+            })
+            .catch((err) => {
+                console.error(err);
+                res.status(500).send('Error: ' + err);
+            })
 
 });
 
