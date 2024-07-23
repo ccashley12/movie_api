@@ -20,8 +20,11 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+//Connect to database remotely
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 //Connect to database locally
-mongoose.connect('mongodb://localhost:27017/ceDB');
+// mongoose.connect('mongodb://localhost:27017/ceDB');
 
 const Movies = Models.Movie;
 const Users = Models.User;
