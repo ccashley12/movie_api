@@ -373,7 +373,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }),
  *     "username": "updated_princess", // Updated username
  *     "email": "updated_pp@email.com", // Updated email
  *     "birthday": "1997-02-14", // Updated birthday
- *     "favorites": [ "60c72b2f9b1d4c3f9cb47c7e" ] // Updated favourites
+ *     "favorites": [ "60c72b2f9b1d4c3f9cb47c7e" ] // Updated favorites
  *   }
  * }
  * @param {string} username - The username of the user to update.
