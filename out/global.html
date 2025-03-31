@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Global</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Global</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="DELETE/users/:Username"><span class="type-signature">(async) </span>DELETE /users/:Username<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Delete a user by username.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line502">line 502</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "message": "User with the username 'princess' has been removed.", // Success message
+  "username": "princess" // Username of the deleted user
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="DELETE/users/:Username/movies/:MovieID"><span class="type-signature">(async) </span>DELETE /users/:Username/movies/:MovieID<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Remove a movie from the user's favorites by movie ID.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line458">line 458</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "message": "Movie with the ID '61c35v3h0d8b3d6h6ca28c6f' removed from favorites.", // Success message
+  "username": "princess", // Username of the authenticated user
+  "favorites": [ // Updated list of favorite movies
+    {
+      "movieId": "61c35v3h0d8b3d6h6ca28c6f", // Movie ID
+      "title": "Another Movie Title" // Movie title
+    },
+    ...
+  ]
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/"><span class="type-signature">(async) </span>GET /<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Root endpoint that sends a welcome message.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line30">line 30</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Request data format
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format
+"Welcome to Cinema Express!"</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/movies"><span class="type-signature">(async) </span>GET /movies<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Retrieves a list of all movies.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+[
+  {
+    "title": "Movie Title", // Title of the movie
+    "description": "Description of the movie", // Description
+    "genre": {
+      "_id": "60a93b2f9b1d3c3f9cb47d51", // Genre ID (ObjectID as string)
+      "name": "Genre Name" // Genre name
+    },
+    "director": {
+      "_id": "63c72b2f2b3f5c3g3cq7c50", // Director ID (ObjectID as string)
+      "name": "Director Name" // Director name
+    },
+    "image": "image/path.jpg", // Path or URL to the movie poster
+    "_id": "61c73b2f9f1d2c3f9cb35c4e" // Unique identifier (ObjectID as string)
+  },
+  ...
+]</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/movies/:Title"><span class="type-signature">(async) </span>GET /movies/:Title<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get a movie by title.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "title": "Movie Title", // Movie title
+  "description": "Description of the movie", // Short description
+  "genre": {
+    "_id": "60a93b2f9b1d3c3f9cb47d51", // Genre ID (ObjectID as string)
+    "name": "Genre Name" // Genre name
+  },
+  "director": {
+    "_id": "63c72b2f2b3f5c3g3cq7c50", // Director ID (ObjectID as string)
+    "name": "Director Name" // Director name
+  },
+  "image": "image/path.jpg", // Path or URL to the movie poster
+  "_id": "61c73b2f9f1d2c3f9cb35c4e" // Unique identifier (ObjectID as string)
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/movies/directors/:directorName"><span class="type-signature">(async) </span>GET /movies/directors/:directorName<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get data about a director by name.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line178">line 178</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "type": "director", // Type of the search result (director)
+  "name": "Director Name", // Director's name
+  "bio": "Bio of the director", // Bio of the director (if available)
+  "birthYear": 1970, // Director's birth year
+  "deathYear": 2022, // Director's death year (if applicable)
+  "movies": [
+    {
+      "title": "Movie Title", // Title of the movie the director directed
+      "description": "Movie Description", // Description of the movie
+      "genre": "Genre Name", // Genre of the movie
+      "image": "image/path.jpg", // Path or URL to the image
+      "_id": "60c72b2f9b1d4c3f9cb47c7e" // Movie unique identifier
+    },
+    ...
+  ]
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/movies/genre/:genreName"><span class="type-signature">(async) </span>GET /movies/genre/:genreName<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get information about a genre by its name.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line132">line 132</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "name": "Genre Name", // Genre name
+  "description": "Genre Description", // Description of the genre
+  "movies": [
+    {
+      "title": "Movie Title", // Title of the movie in this genre
+      "description": "Movie Description", // Description of the movie
+      "image": "image/path.jpg", // Path or URL to the image
+      "_id": "61c36b1f8b1d7c2f8cb77c8e" // Movie unique identifier
+    },
+    ...
+  ]
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="GET/users/:Username"><span class="type-signature">(async) </span>GET /users/:Username<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get the profile of a user by their username.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line311">line 311</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "username": "roboboi", // Username of the user
+  "email": "robo@email.com", // User's email address
+  "birthday": "2020-01-01", // User's birthday (if provided)
+  "favorites": [ // List of favorite movie objects (IDs)
+    "61c81b2f9b1d2c6f7uf25c8h", // Movie ID
+    "62b67s2f9b1d4c3f9cb47c73"  // Another Movie ID
+  ]
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="POST/users"><span class="type-signature">(async) </span>POST /users<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Register a new user with username, email, password, and optional birthday.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line228">line 228</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Request data format:
+{
+  "username": "princess",
+  "email": "pp@email.com",
+  "password": "peachybaby",
+  "birthday": "1997-02-14" // Optional
+}</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "message": "User created successfully.",
+  "user": {
+    "_id": "61c13b9f5b2d3c9f8cb25c8e", // Unique identifier (ObjectID as string)
+    "username": "princess", // New user's username
+    "email": "pp@email.com", // New user's email
+    "birthday": "1997-02-14" // New user's birthday
+  },
+  "token": "JWT-TOKEN-HERE" // JSON Web Token for authentication
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="PUT/users/:Username"><span class="type-signature">(async) </span>PUT /users/:Username<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Update user details by username.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line348">line 348</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+{
+  "newUsername": "updated_princess", // Optional new username
+  "newEmail": "updated_pp@email.com", // Optional new email
+  "newPassword": "peachy1", // Optional new password
+  "newBirthday": "1997-02-14", // Optional new birthday
+  "favorites": [ // Optional favorite movies to add or remove
+    { "action": "add", "_id": "60c72b2f9b1d4c3f9cb47c7e" } // Add movie
+  ]
+}</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "message": "User updated successfully.",
+  "updatedFields": {
+    "username": "updated_princess updated successfully",
+    "favorites (added movies)": "added movie successfully"
+  },
+  "user": {
+    "username": "updated_princess", // Updated username
+    "email": "updated_pp@email.com", // Updated email
+    "birthday": "1997-02-14", // Updated birthday
+    "favorites": [ "60c72b2f9b1d4c3f9cb47c7e" ] // Updated favourites
+  }
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="PUT/users/:Username/movies/:MovieID"><span class="type-signature">(async) </span>PUT /users/:Username/movies/:MovieID<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Add a movie to the user's favorites by movie ID.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line413">line 413</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>Authentication: Bearer token (JWT)</code></pre>
+
+    <pre class="prettyprint"><code>Request data format:
+none</code></pre>
+
+    <pre class="prettyprint"><code>Response data format:
+{
+  "message": "Movie 'Movie Title' with the ID '61c35v3h0d8b3d6h6ca28c6f' added to favorites.", // Success message
+  "username": "princess", // Username of the authenticated user
+  "favorites": [ // List of favorite movies
+    {
+      "movieId": "61c35v3h0d8b3d6h6ca28c6f", // Movie ID
+      "title": "Movie Title" // Movie title
+    },
+    ...
+  ]
+}</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DELETE/users/:Username">DELETE /users/:Username</a></li><li><a href="global.html#DELETE/users/:Username/movies/:MovieID">DELETE /users/:Username/movies/:MovieID</a></li><li><a href="global.html#GET/">GET /</a></li><li><a href="global.html#GET/movies">GET /movies</a></li><li><a href="global.html#GET/movies/:Title">GET /movies/:Title</a></li><li><a href="global.html#GET/movies/directors/:directorName">GET /movies/directors/:directorName</a></li><li><a href="global.html#GET/movies/genre/:genreName">GET /movies/genre/:genreName</a></li><li><a href="global.html#GET/users/:Username">GET /users/:Username</a></li><li><a href="global.html#POST/users">POST /users</a></li><li><a href="global.html#PUT/users/:Username">PUT /users/:Username</a></li><li><a href="global.html#PUT/users/:Username/movies/:MovieID">PUT /users/:Username/movies/:MovieID</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 31 2025 15:19:27 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
